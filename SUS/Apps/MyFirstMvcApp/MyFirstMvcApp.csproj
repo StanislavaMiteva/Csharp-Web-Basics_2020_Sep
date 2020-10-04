@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\SUS.HTTP\SUS.HTTP.csproj" />
+    <ProjectReference Include="..\..\SUS.MVCFramework\SUS.MVCFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup>
