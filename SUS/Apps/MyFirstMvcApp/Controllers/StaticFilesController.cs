@@ -1,6 +1,6 @@
 ﻿using SUS.HTTP;
 using SUS.MVCFramework;
-using System.IO;
+using System;
 
 namespace MyFirstMvcApp.Controllers
 {
@@ -8,10 +8,28 @@ namespace MyFirstMvcApp.Controllers
     {
         public HttpResponse Favicon(HttpRequest request)
         {
-            byte[] fileBytes = File.ReadAllBytes("wwwroot/favicon_monitor.ico");
-            HttpResponse response = new HttpResponse("image/vnd.microsoft.icon", fileBytes);
+            return this.File("wwwroot/favicon_monitor.ico", "image/vnd.microsoft.icon");            
+        }
 
-            return response;
+        internal HttpResponse BootstrapCss(HttpRequest arg)
+        {
+            return this.File("wwwroot/css/bootstrap.min.css", "text/css");            
+        }
+
+        internal HttpResponse CustomCss(HttpRequest arg)
+        {
+            return this.File("wwwroot/css/custom.css", "text/css");
+        }
+
+        internal HttpResponse CustomJs(HttpRequest arg)
+        {
+            return this.File("wwwroot/js/bootstrap.bundle.min.js", "text/javascript");
+        }
+
+        internal HttpResponse BootstrapJs(HttpRequest arg)
+        {
+            return this.File("wwwroot/js/custom.js", "text/javascript");
+            throw new NotImplementedException();
         }
     }
 }
