@@ -15,7 +15,7 @@ namespace SUS.HTTP
         public HttpServer(List<Route> routeTable)
         {
             this.routeTable = routeTable;
-        }        
+        }
 
         public async Task StartAsync(int port)
         {
@@ -64,10 +64,11 @@ namespace SUS.HTTP
                     Console.WriteLine($"{request.Method} {request.Path} => {request.Headers.Count} headers");
 
                     HttpResponse response;
-                    var route = this.routeTable.FirstOrDefault(x => x.Path == request.Path);
-
-                    if (route!=null)
-                    {                        
+                    var route = this.routeTable.FirstOrDefault(
+                        x => string.Compare(x.Path, request.Path, true) == 0
+                        & x.Method == request.Method);
+                    if (route != null)
+                    {
                         response = route.Action(request);
                     }
                     else
@@ -77,7 +78,7 @@ namespace SUS.HTTP
                     }
 
                     response.Cookies.Add(new ResponseCookie("sid", Guid.NewGuid().ToString())
-                        { HttpOnly = true, MaxAge = 60 * 24 * 60 * 60 });
+                    { HttpOnly = true, MaxAge = 60 * 24 * 60 * 60 });
                     response.Headers.Add(new Header("Server", "SUS Server 1.0"));
 
                     byte[] responseHeaderBytes = Encoding.UTF8.GetBytes(response.ToString());
