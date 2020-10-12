@@ -13,19 +13,21 @@ namespace SUS.MVCFramework
         {
             this.viewEngine = new SusViewEngine();
         }
+
+        public HttpRequest Request { get; set; }
         public HttpResponse View(
             object viewModel=null,
             [CallerMemberName]string viewPath = null)
         {
-            string layout = System.IO.File.ReadAllText("Views/Shared/_Layout.cshtml");
-            layout = layout.Replace("@RenderBody()", "____VIEW_GOES_HERE____");
-            layout = this.viewEngine.GetHtml(layout, viewModel);
-
             string viewContent = System.IO.File.ReadAllText(
                 "Views/" + 
                 this.GetType().Name.Replace("Controller", string.Empty) + 
                 "/" + viewPath + ".cshtml");
             viewContent = this.viewEngine.GetHtml(viewContent, viewModel);
+
+            string layout = System.IO.File.ReadAllText("Views/Shared/_Layout.cshtml");
+            layout = layout.Replace("@RenderBody()", "____VIEW_GOES_HERE____");
+            layout = this.viewEngine.GetHtml(layout, viewModel);
 
             string responseHtml = layout.Replace("____VIEW_GOES_HERE____", viewContent);
 
