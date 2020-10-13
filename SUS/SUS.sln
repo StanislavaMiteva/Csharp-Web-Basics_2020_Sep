@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SUS.MVCFramework", "SUS.MVC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{82D61919-7B0C-4031-8965-E85CC8FF192F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyFirstMvcApp", "Apps\MyFirstMvcApp\MyFirstMvcApp.csproj", "{B97357FB-D1B3-40B8-B9D6-C377B8965A95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleCards", "Apps\MyFirstMvcApp\BattleCards.csproj", "{B97357FB-D1B3-40B8-B9D6-C377B8965A95}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SUS.MvcFramework.Tests", "SUS.MvcFramework.Tests\SUS.MvcFramework.Tests.csproj", "{388117E2-8D6C-46AA-9361-6264D349E942}"
 EndProject

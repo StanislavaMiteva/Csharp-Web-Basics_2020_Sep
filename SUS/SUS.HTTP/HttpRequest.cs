@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 
 namespace SUS.HTTP
@@ -11,6 +12,7 @@ namespace SUS.HTTP
         {
             this.Headers = new List<Header>();
             this.Cookies = new List<Cookie>();
+            this.FormData = new Dictionary<string, string>();
 
             string[] lines = requestString.Split(new string[] { HttpConstants.NewLine }, StringSplitOptions.None);
             
@@ -59,6 +61,18 @@ namespace SUS.HTTP
             }
 
             this.Body = bodyBuilder.ToString();
+            var parameters = this.Body.Split(new char[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var parameter in parameters)
+            {
+                var parameterParts = parameter.Split('=');
+                var name = parameterParts[0];
+                var value = WebUtility.UrlDecode(parameterParts[1]);
+
+                if (!this.FormData.ContainsKey(name))
+                {
+                    this.FormData.Add(name, value);
+                }
+            }
         }
 
         public string Path { get; set; }
@@ -68,6 +82,8 @@ namespace SUS.HTTP
         public ICollection<Header> Headers { get; set; }
 
         public ICollection<Cookie> Cookies { get; set; }
+
+        public IDictionary<string,string> FormData { get; set; }
 
         public string Body { get; set; }
     }

@@ -2,7 +2,7 @@
 using SUS.MVCFramework;
 using System;
 
-namespace MyFirstMvcApp.Controllers
+namespace BattleCards.Controllers
 {
     public class UsersController: Controller
     {

@@ -1,9 +1,9 @@
-﻿using MyFirstMvcApp.ViewModels;
+﻿using BattleCards.ViewModels;
 using SUS.HTTP;
 using SUS.MVCFramework;
 using System;
 
-namespace MyFirstMvcApp.Controllers
+namespace BattleCards.Controllers
 {
     public class HomeController: Controller
     {
