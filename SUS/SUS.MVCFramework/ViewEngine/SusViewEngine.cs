@@ -115,7 +115,7 @@ namespace ViewNamespace
                 .AddReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location))
                 .AddReferences(MetadataReference.CreateFromFile(typeof(IView).Assembly.Location));
             if (viewModel != null)
-            {
+            {                
                 compileResult = compileResult
                     .AddReferences(MetadataReference.CreateFromFile(viewModel.GetType().Assembly.Location));
             }
