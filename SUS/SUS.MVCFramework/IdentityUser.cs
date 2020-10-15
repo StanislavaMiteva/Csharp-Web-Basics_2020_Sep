@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SUS.MVCFramework
 {
-    public class UserIdentity
-    {        
-        [Required]
-        public string Id { get; set; }
+    public class IdentityUser<T>
+    {                
+        public T Id { get; set; }
 
         [Required]
         [MaxLength(20)]
@@ -20,5 +16,6 @@ namespace SUS.MVCFramework
         [Required]
         public string Password { get; set; }
 
+        public IdentityRole Role { get; set; }
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IViewEngine
     {
-        string GetHtml(string temlateCode, object viewModel);
+        string GetHtml(string temlateCode, object viewModel, string user);
     }
 }
