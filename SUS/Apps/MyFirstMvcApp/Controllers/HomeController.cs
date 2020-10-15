@@ -16,12 +16,6 @@ namespace BattleCards.Controllers
             }
 
             return this.View();
-        }
-
-        public HttpResponse About()
-        {
-            this.SignIn("Niki");
-            return this.View();
-        }
+        }        
     }
 }
