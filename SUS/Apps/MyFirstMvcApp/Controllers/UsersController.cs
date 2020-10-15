@@ -1,4 +1,5 @@
-﻿using BattleCards.Services;
+﻿using BatlteCards.Data;
+using BattleCards.Services;
 using SUS.HTTP;
 using SUS.MVCFramework;
 using System;
@@ -9,11 +10,11 @@ namespace BattleCards.Controllers
 {
     public class UsersController : Controller
     {
-        private UsersService usersService;
+        private IUsersService usersService;
 
-        public UsersController()
+        public UsersController(IUsersService usersService)
         {
-            this.usersService = new UsersService();
+            this.usersService = usersService;
         }
 
         public HttpResponse Login()
@@ -71,22 +72,22 @@ namespace BattleCards.Controllers
 
             if (username == null || username.Length < 5 || username.Length > 20)
             {
-                this.Error("Invalid username. The username should be between 5 and 20 characters.");
+                return this.Error("Invalid username. The username should be between 5 and 20 characters.");
             }
 
             if (!Regex.IsMatch(username, @"^[a-zA-Z0-9\.]+$"))
             {
-                this.Error("Invalid username. Only alphanumeric characters are allowed.");
+                return this.Error("Invalid username. Only alphanumeric characters are allowed.");
             }
 
             if (string.IsNullOrWhiteSpace(email) || !new EmailAddressAttribute().IsValid(email))
             {
-                this.Error("Invalid email.");
+                return this.Error("Invalid email.");
             }
 
             if (password == null || password.Length < 6 || password.Length > 20)
             {
-                this.Error("Invalid password. The password should be between 6 and 20 characters.");
+                return this.Error("Invalid password. The password should be between 6 and 20 characters.");
             }
 
             if (password != confirmPassword)
@@ -99,7 +100,7 @@ namespace BattleCards.Controllers
                 return this.Error("Username already taken.");
             }
 
-            if (this.usersService.IsEmailAvailable(email))
+            if (!this.usersService.IsEmailAvailable(email))
             {
                 return this.Error("Email already taken.");
             }

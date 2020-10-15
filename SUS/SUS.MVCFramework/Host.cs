@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace SUS.MVCFramework
@@ -14,12 +13,13 @@ namespace SUS.MVCFramework
         {
             //TODO: {controller}/{action}/{id}
             List<Route> routeTable = new List<Route>();
+            IServiceCollection serviceCollection = new ServiceCollection();
+
+            application.ConfigureServices(serviceCollection);
+            application.Configure(routeTable);
 
             AutoRegisterStaticFile(routeTable);
-            AutoRegisterRoutes(routeTable, application);
-
-            application.ConfigureServices();
-            application.Configure(routeTable);
+            AutoRegisterRoutes(routeTable, application, serviceCollection);
 
             Console.WriteLine("All registered routes:");
             foreach (var route in routeTable)
@@ -33,7 +33,7 @@ namespace SUS.MVCFramework
             await server.StartAsync(port);
         }
 
-        private static void AutoRegisterRoutes(List<Route> routeTable, IMvcApplication application)
+        private static void AutoRegisterRoutes(List<Route> routeTable, IMvcApplication application, IServiceCollection serviceCollection)
         {
             var controllerTypes =application.GetType().Assembly.GetTypes()
                 .Where(x=> x.IsClass && !x.IsAbstract && x.IsSubclassOf(typeof(Controller)));
@@ -69,7 +69,7 @@ namespace SUS.MVCFramework
 
                     routeTable.Add(new Route(url, httpMethod, (request) =>
                     {
-                        var instance = Activator.CreateInstance(controllerType) as Controller;
+                        var instance = serviceCollection.CreateInstance(controllerType) as Controller;
                         instance.Request = request;
                         var response=method.Invoke(instance, new object [] { }) as HttpResponse;
                         return response;
