@@ -1,7 +1,5 @@
-﻿using BattleCards.ViewModels;
-using SUS.HTTP;
+﻿using SUS.HTTP;
 using SUS.MVCFramework;
-using System;
 
 namespace BattleCards.Controllers
 {
