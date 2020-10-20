@@ -49,7 +49,7 @@ namespace BattleCards.Controllers
 
             if (string.IsNullOrWhiteSpace(model.Keyword))
             {
-                return this.Error("The image is keyword!");
+                return this.Error("The keyword is required!");
             }
 
             if (model.Attack<0)
